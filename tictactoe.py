@@ -1,5 +1,5 @@
 import pygame as pg
-pg.init()
+pg.init() 
 dis = pg.display.set_mode((600, 300))
 pg.display.update()
 pg.display.set_caption('TicTacToe')
@@ -12,7 +12,7 @@ pg.display.update()
 chance=1
 font = pg.font.SysFont("comicsansms", 72)
 text = font.render("X", True, (255, 0, 0))
-text1 = font.render("O", True, (255, 0, 0))
+text1 = font.render("O", True, (0, 255, 0))
 marked={}
 while not game_over:
     for x in pg.event.get():
