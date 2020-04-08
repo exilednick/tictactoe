@@ -66,5 +66,7 @@ while not game_over:
                 new_game=1
                 pg.time.wait(2000)
         pg.display.update()
+        if len(marked)==9:
+            new_game=1
 pg.quit()
 quit()
