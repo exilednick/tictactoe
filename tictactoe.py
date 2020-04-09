@@ -1,11 +1,11 @@
-def minimax(marked,move):
+def minimax(marked,move,val):
     #if move==1 then minimises
     wn,winner=win(marked)
     if wn:
         if winner==0:
-            return 1
+            return val
         else:
-            return -1
+            return -val
     elif wn==-1 and len(marked)==9:
         return 0
 
@@ -14,7 +14,7 @@ def minimax(marked,move):
         for j in range(3):
             if (i,j) not in marked:
                 marked[(i,j)]=move
-                scores.append(minimax(marked,abs(move-1)))
+                scores.append(minimax(marked,abs(move-1),val-1))
                 del marked[(i,j)]
     #print(scores)
 
@@ -28,7 +28,7 @@ def ai(marked):
         for j in range(3):
             if (i,j) not in marked:
                 marked[(i,j)]=0
-                score=minimax(marked,1)
+                score=minimax(marked,1,10)
                 if score>best_score:
                     best_score=score
                     move=(i,j)
@@ -86,15 +86,20 @@ while not game_over:
             if idx not in marked:
                 marked[idx]=1
                 dis.blit(text1,(idx[0]*200+70,idx[1]*100))
+                pg.display.update()
             else:
                 continue
             if len(marked)==9:
                 new_game=1
+                pg.time.wait(1000)
                 break
             check,winner=win(marked)
             if check:
                 pg.time.wait(1000)
-                text2=font.render("Winner"+" "+str(winner),True,(255,0,0))
+                if winner:
+                    text2=font.render("Winner: O",True,(255,0,0))
+                else:
+                    text2=font.render("Winner: X",True,(255,0,0))
                 dis.fill((0,0,0))
                 dis.blit(text2,(150,100))
                 pg.display.update()
@@ -111,7 +116,10 @@ while not game_over:
             check,winner=win(marked)
             if check:
                 pg.time.wait(1000)
-                text2=font.render("Winner"+" "+str(winner),True,(255,0,0))
+                if winner:
+                    text2=font.render("Winner: O",True,(255,0,0))
+                else:
+                    text2=font.render("Winner: X",True,(255,0,0))
                 dis.fill((0,0,0))
                 dis.blit(text2,(150,100))
                 pg.display.update()
